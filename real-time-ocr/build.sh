@@ -19,5 +19,5 @@ cmake ..
 make -j24
 
 # release
-chmod 777 test-*
-cp test-* $SYSROOT/userdata/Demo
+chmod 777 real-*
+cp real-* $SYSROOT/userdata/Demo
