@@ -27,12 +27,15 @@ set(api_inc
 		${CMAKE_SYSROOT}/usr/include/rkmedia
 		${toolkit_root}/peripheral_api/camera
 		${toolkit_root}/peripheral_api/display
+		${CMAKE_SYSROOT}/usr/include/rkfacial
+		${toolkit_root}/algorithm_api/ocr/
 )
 
-link_directories(${toolkit_root}/peripheral_api/camera)	#-L	#-o
-link_directories(${toolkit_root}/peripheral_api/display)          #-L
+link_directories(${toolkit_root}/peripheral_api/camera)
+link_directories(${toolkit_root}/peripheral_api/display)
+link_directories(${toolkit_root}/algorithm_api/ocr/)
 
-add_executable(real-time-ocr real-time-ocr.cpp)                       #-o
-target_link_libraries(real-time-ocr camera display easymedia rga rkaiq pthread) #-l
-target_include_directories(real-time-ocr PRIVATE ${api_inc})	#-I
-
+find_package(OpenCV REQUIRED)
+add_executable(real-time-ocr real-time-ocr.cpp)
+target_link_libraries(real-time-ocr camera display easymedia rga rkaiq pthread ocr rknn_api  ${OpenCV_LIBS} )
+target_include_directories(real-time-ocr PRIVATE ${api_inc} ${OpenCV_INCLUDE_DIRS})
